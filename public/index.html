@@ -33,14 +33,9 @@
     embedded
     arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
-    <!-- we use cors proxy to avoid cross-origin problems -->
-
-    <!--
-      ⚠️⚠️⚠️
-      https://arjs-cors-proxy.herokuapp.com/ is now offline, Heroku has dismissed all his free plans from November 2022.
-      You need to host your own proxy and use it instead. The proxy is based on CORS Anywhere (see https://github.com/Rob--W/cors-anywhere).
-      ⚠️⚠️⚠️
-    -->
+  <a-assets>
+    <video id="Video_Asset_0" autoplay="false" loop crossorigin="anonymous" src="./pattern.mp4" webkit-playsinline playsinline controls muted></video>
+  </a-assets>
 
     <a-nft
       type="nft"
@@ -50,23 +45,86 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
-    <a-video
-        src="./pattern.mp4"
-        position="0 0 -20"
-        rotation="-90 0 0"
-        scale="250 250 1"
-        playsinline
-        webkit-playsinline
-      ></a-video>
+    <a-video src="#Video_Asset_0" id="Video_0" class="intersectable" width="1" height="1" position="0 0 0" rotation="0 0 0" color="#FFFFFF" transparent=False></a-video>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
 </body>
 <script>
-  document.addEventListener('click', function() {
-    var video = document.querySelector('video');
-    if (video && video.paused) {
-      video.play();
-    }
-  });
+  var markerFound = 0;
+  AFRAME.registerComponent('button', {
+      init: function ()
+      {
+        var elem = document.documentElement;
+        var marker = document.querySelector("#marker");
+        var fullbutton = document.querySelector("#fullscreen");
+        var Video_0 = document.querySelector("#Video_Asset_0");
+        var button = document.querySelector("#mutebutton");
+        button.hidden = true;
+        Video_0.pause();
+
+        marker.addEventListener("markerFound", function (evt) {
+          markerFound = 1;
+          button.hidden = false;
+          //Video_0.play();  //if video should start immediently on marker detection
+        });
+
+        marker.addEventListener("markerLost", function (evt) {
+          markerFound = 0;
+          Video_0.pause();
+          button.hidden = true;
+        });
+
+        button.addEventListener("click", function(evt){
+          console.log("button clicked")
+          if(Video_0.muted==true){
+            button.innerHTML="Pause";
+            Video_0.muted=false;
+            Video_0.play();
+          }else{
+            button.innerHTML="Play";
+            Video_0.muted=true;
+            Video_0.pause();
+          }
+        });
+
+        fullbutton.addEventListener("click",
+          function (evt){
+            if (fullscreen == 0) {
+              if (elem.requestFullscreen) {
+                  elem.requestFullscreen();
+              } else if (elem.mozRequestFullScreen) {
+                  /* Firefox */
+                  elem.mozRequestFullScreen();
+              } else if (elem.webkitRequestFullscreen) {
+                  /* Chrome, Safari and Opera */
+                  elem.webkitRequestFullscreen();
+              } else if (elem.msRequestFullscreen) {
+                  /* IE/Edge */
+                  elem.msRequestFullscreen();
+              }
+              fullbutton.setAttribute("src", "vendor/exit_fullscreen.png");
+              fullscreen = 1;
+            } else {
+              if (document.exitFullscreen) {
+                  document.exitFullscreen();
+              } else if (document.webkitExitFullscreen) {
+                  document.webkitExitFullscreen();
+              } else if (document.mozCancelFullScreen) {
+                  document.mozCancelFullScreen();
+              } else if (document.msExitFullscreen) {
+                  document.msExitFullscreen();
+              }
+              fullbutton.setAttribute("src", "vendor/fullscreen.png");
+              fullscreen = 0;
+            }
+          });
+      },
+      tick: function (totalTime, deltaTime)
+      {
+          var dTime = deltaTime / 1000;
+          if (markerFound == 1) {
+          }
+      }
+    });
 </script>
