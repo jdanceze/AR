@@ -61,3 +61,11 @@
     <a-entity camera></a-entity>
   </a-scene>
 </body>
+<script>
+  document.addEventListener('click', function() {
+    var video = document.querySelector('video');
+    if (video && video.paused) {
+      video.play();
+    }
+  });
+</script>
