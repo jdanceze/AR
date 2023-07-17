@@ -22,11 +22,16 @@
   </head>
   <body>
     <a-scene embedded arjs="debugUIEnabled: false;">
-      <a-marker preset="hiro">
-        <a-box position="0 0.5 0" material="color: red;"></a-box>
-      </a-marker>
+        <a-marker preset="hiro">
+            <a-image
+              src="https://media.giphy.com/media/Lopx9eUi34rbq/giphy.gif"
+              position="0 0 0"
+              scale="1 1 1"
+            ></a-image>
+          </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
     <div id="overlay">Scan the marker to see the red box!</div>
   </body>
 </html>
+
