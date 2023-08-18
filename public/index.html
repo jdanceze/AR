@@ -1,4 +1,5 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
@@ -27,12 +28,8 @@
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
+  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
     <!-- we use cors proxy to avoid cross-origin problems -->
 
     <!--
@@ -42,23 +39,21 @@
       ⚠️⚠️⚠️
     -->
 
-    <a-nft
-      type="nft"
-      url="./pat/pat"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-    <a-video
+    <a-nft type="nft" url="./pat/pat" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
+      <!-- <a-video
         src="./pattern.mp4"
         position="0 10 -20"
         rotation="-90 0 0"
         scale="200 200 1"
         playsinline
         webkit-playsinline
-      ></a-video>
+      ></a-video> -->
+      <a-image src="./overlay.jpeg" position="0 0 0" rotation="-90 0 0"
+        scale="1 1 1"></a-image>
     </a-nft>
     <a-entity camera></a-entity>
+  </a-scene>
+  </a-nft>
+  <a-entity camera></a-entity>
   </a-scene>
 </body>
