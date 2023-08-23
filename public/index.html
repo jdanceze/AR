@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Links Page</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body style="margin: 0px; overflow: hidden;">
-  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
-    <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-marker preset="hiro"></a-marker>
-      <a-entity position="0 0 0">
-        <a-image src="./overlay_red.png" position="90 0 -280" rotation="-90 0 0" scale="190 280" opacity="0.8"></a-image>
-      </a-entity>
-    </a-nft>
-    <a-entity camera></a-entity>
-  </a-scene>
+
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col text-center">
+        <a href="black.html" class="btn btn-outline-secondary" style="color: black;">Black Page</a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col text-center">
+        <a href="red.html" class="btn btn-outline-danger" style="color: red;">Red Page</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
-<!-- releases 1 -->
