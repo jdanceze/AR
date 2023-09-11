@@ -4,12 +4,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="https://unpkg.com/aframe-transparent-video-shader-corrected@1.0.0/dist/transparent-video-shader.js"></script>
 </head>
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-assets>
-        <video id="videoElement" src="./sample.mov" autoplay loop playsinline webkit-playsinline muted></video>
+        <video id="videoElement" src="./sample.mov" type='video/mp4; codecs="hvc1"' autoplay loop playsinline webkit-playsinline muted></video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
       <a-entity position="0 0 0">
