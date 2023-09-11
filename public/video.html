@@ -5,6 +5,7 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 </head>
 <body style="margin: 0px; overflow: hidden;">
+  <button id="playButton" style="position: absolute; z-index: 1;">Play Video</button>
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
       <a-marker preset="hiro"></a-marker>
@@ -16,13 +17,11 @@
   </a-scene>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+      const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
-      videoElement.addEventListener("loadeddata", function() {
-        try {
-          videoElement.play();
-        } catch (error) {
-          console.error("Autoplay failed:", error);
-        }
+
+      playButton.addEventListener("click", function() {
+        videoElement.play();
       });
     });
   </script>
