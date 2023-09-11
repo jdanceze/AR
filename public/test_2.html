@@ -1,64 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    #gifElement {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      width: 180px;
+      height: 120px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body style="margin: 0px; overflow: hidden;">
-  <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
+  <img id="gifElement" src="./sample.gif" alt="animated gif">
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
-    <a-assets>
-      <video id="videoElement" src="./sample.mov" type='video/mp4; codecs="hvc1"' loop playsinline webkit-playsinline muted></video>
-    </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-entity id="videoPlane" position="100 0 -280" rotation="-90 0 0" scale="180 120"></a-entity>
+      <a-marker preset="hiro"></a-marker>
+      <a-entity position="0 0 0">
+      </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const playButton = document.getElementById("playButton");
-      const videoElement = document.getElementById("videoElement");
-
-      playButton.addEventListener("click", function() {
-        videoElement.play();
-      });
-
-      let sceneEl = document.querySelector('a-scene');
-      let videoPlaneEl = document.querySelector('#videoPlane');
-
-      if (sceneEl.hasLoaded) {
-        setupVideoMaterial();
-      } else {
-        sceneEl.addEventListener('loaded', setupVideoMaterial);
-      }
-
-      function setupVideoMaterial() {
-        // Get Three.js scene and video texture
-        let scene = sceneEl.object3D;
-        let texture = new THREE.VideoTexture(videoElement);
-
-        // Create material with shader
-        let material = new THREE.MeshBasicMaterial({
-          map: texture,
-          side: THREE.DoubleSide,
-          transparent: true
-        });
-
-        // Create geometry
-        let geometry = new THREE.PlaneGeometry(1, 1);
-
-        // Create mesh with geometry and material
-        let mesh = new THREE.Mesh(geometry, material);
-
-        // Get the Three.js object of the A-Frame entity
-        let videoPlane = videoPlaneEl.object3D;
-
-        // Add mesh as a child of the A-Frame entity
-        videoPlane.add(mesh);
-      }
-    });
-  </script>
 </body>
 </html>
