@@ -9,11 +9,22 @@
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
       <a-marker preset="hiro"></a-marker>
       <a-entity position="0 0 0">
-        <!-- Changed a-image to a-video and added autoplay, playsinline, and muted attributes -->
-        <a-video src="./pattern.mp4" position="100 0 -280" rotation="-90 0 0" scale="180 120" autoplay playsinline muted></a-video>
+        <a-video id="videoElement" src="./pattern.mp4" position="100 0 -280" rotation="-90 0 0" scale="180 120" muted></a-video>
       </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const videoElement = document.getElementById("videoElement");
+      videoElement.addEventListener("loadeddata", function() {
+        try {
+          videoElement.play();
+        } catch (error) {
+          console.error("Autoplay failed:", error);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
