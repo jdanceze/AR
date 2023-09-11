@@ -9,10 +9,12 @@
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-assets>
-      <video id="videoElement" src="./pattern.mp4" loop playsinline webkit-playsinline muted></video>
+      <video id="videoElement" src="./pattern.mp4" autoplay loop playsinline webkit-playsinline muted></video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-entity id="videoPlane" position="100 0 -280" rotation="-90 0 0" scale="180 120"></a-entity>
+      <a-entity position="0 0 0">
+        <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120"></a-video>
+      </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
@@ -24,40 +26,6 @@
       playButton.addEventListener("click", function() {
         videoElement.play();
       });
-
-      let sceneEl = document.querySelector('a-scene');
-      let videoPlaneEl = document.querySelector('#videoPlane');
-
-      if (sceneEl.hasLoaded) {
-        setupVideoMaterial();
-      } else {
-        sceneEl.addEventListener('loaded', setupVideoMaterial);
-      }
-
-      function setupVideoMaterial() {
-        // Get Three.js scene and video texture
-        let scene = sceneEl.object3D;
-        let texture = new THREE.VideoTexture(videoElement);
-
-        // Create material with shader
-        let material = new THREE.MeshBasicMaterial({
-          map: texture,
-          side: THREE.DoubleSide,
-          transparent: true
-        });
-
-        // Create geometry
-        let geometry = new THREE.PlaneGeometry(1, 1);
-
-        // Create mesh with geometry and material
-        let mesh = new THREE.Mesh(geometry, material);
-
-        // Get the Three.js object of the A-Frame entity
-        let videoPlane = videoPlaneEl.object3D;
-
-        // Add mesh as a child of the A-Frame entity
-        videoPlane.add(mesh);
-      }
     });
   </script>
 </body>
