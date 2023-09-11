@@ -9,12 +9,12 @@
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-assets>
-      <video id="videoElement" src="./sample.webm" autoplay loop playsinline webkit-playsinline muted></video>
+      <video id="videoElement" src="./pattern.mp4" autoplay loop playsinline webkit-playsinline muted></video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
       <!-- <a-marker preset="hiro"></a-marker> -->
       <a-entity position="0 0 0">
-        <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video>
+        <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120"></a-video>
       </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
