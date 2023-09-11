@@ -9,7 +9,10 @@
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-assets>
-      <video id="videoElement" src="https://rotato.netlify.app/alpha-demo/movie-hevc.mov" autoplay loop playsinline webkit-playsinline muted type='video/mp4; codecs="hvc1"'></video>
+        <video width="600" height="100%" autoplay loop muted playsinline>
+            <source src="https://rotato.netlify.app/alpha-demo/movie-hevc.mov" type='video/mp4; codecs="hvc1"'>
+            <!-- <source src="https://rotato.netlify.app/alpha-demo/movie-webm.webm" type="video/webm"> -->
+            </video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
       <a-entity position="0 0 0">
