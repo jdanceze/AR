@@ -13,8 +13,17 @@
         <video id="videoElement" src="./sample.mov" type='video/mp4; codecs="hvc1"' autoplay loop playsinline webkit-playsinline muted></video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-entity position="0 0 0">
+      <!-- <a-entity position="0 0 0">
         <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video>
+      </a-entity> -->
+      <a-entity
+        material="shader: transparent-video; src: #videoElement; transparent: true"
+        geometry="primitive: plane;
+                  width: 1;
+                  height: 1.8"
+        position="100 0 -280"
+        rotation="-90 0 0"
+        scale="180 120">
       </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
