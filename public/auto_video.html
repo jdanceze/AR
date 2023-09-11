@@ -11,8 +11,8 @@
       <video id="videoElement" src="./pattern.mp4" autoplay  playsinline webkit-playsinline muted></video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-marker preset="hiro" id="marker">
-      </a-marker>
+      <!-- <a-marker preset="hiro" id="marker">
+      </a-marker> -->
       <a-entity position="0 0 0">
         <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120"></a-video>
       </a-entity>
@@ -21,19 +21,22 @@
   </a-scene>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const marker = document.getElementById('marker');
+      const nftMarker = document.querySelector('a-nft'); // Select the a-nft element
       const videoElement = document.getElementById('videoElement');
 
-      marker.addEventListener('markerFound', function(){
+      // Listen for the marker to be found in the scene
+      nftMarker.addEventListener('markerFound', function(){
           console.log('markerFound');
           videoElement.play();
       });
-      
-      marker.addEventListener('markerLost', function(){
+
+      // Listen for the marker to be lost from the scene
+      nftMarker.addEventListener('markerLost', function(){
           console.log('markerLost');
           videoElement.pause();
       });
     });
-  </script>
+</script>
+
 </body>
 </html>
