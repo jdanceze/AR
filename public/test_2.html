@@ -2,20 +2,20 @@
 <html>
 <head>
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
   <style>
     .arjs-loader {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
   </style>
 </head>
@@ -26,25 +26,11 @@
       <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
         <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
       </video>
-      <script id="vertexShader" type="x-shader/x-vertex">
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-        }
-      </script>
-      <script id="fragmentShader" type="x-shader/x-fragment">
-        uniform sampler2D map;
-        varying vec2 vUv;
-        void main() {
-          vec4 color = texture2D(map, vUv);
-          if (color.a < 0.5) discard;
-          gl_FragColor = color;
-        }
-      </script>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-entity geometry="primitive: plane; width: 1; height: 1;" position="0 0 0" material="shader: flat; vertexShader: #vertexShader; fragmentShader: #fragmentShader; transparent: true; src: #videoElement;"></a-entity>
+      <a-entity position="100 0 -280" rotation="-90 0 0" scale="180 120">
+        <a-plane material="shader: flat; transparent: true; src: #videoElement;"></a-plane>
+      </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
