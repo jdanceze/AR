@@ -17,30 +17,53 @@
         justify-content: center;
         align-items: center;
     }
-</style>
+  </style>
 </head>
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
   <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-assets>
-      <!-- <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
-        <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
-      </video> -->
       <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
-        <source src="./sample.webm">
+        <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
       </video>
     </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <!-- <a-entity position="0 0 0"> -->
-        <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video>
-        <!-- <a-video src="./sample.mov" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video> -->
-      <!-- </a-entity> -->
-      
+      <a-entity geometry="primitive: plane; height: 120; width: 180;" position="100 0 -280" rotation="-90 0 0" material="shader: flat; src: #videoElement;" scale="1 1">
+        <a-entity material="shader: circleclip; clipCenter: 0.5 0.5; clipRadius: 0.5;"></a-entity>
+      </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
 
   <script>
+    AFRAME.registerShader('circleclip', {
+      schema: {
+        clipCenter: {type: 'vec2', default: {x: 0.5, y: 0.5}},
+        clipRadius: {type: 'number', default: 0.5},
+      },
+
+      vertexShader: [
+        'varying vec2 vUV;',
+        'void main(void) {',
+        '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
+        '  vUV = uv;',
+        '}'
+      ].join('\n'),
+
+      fragmentShader: [
+        'uniform sampler2D map;',
+        'varying vec2 vUV;',
+        'uniform vec2 clipCenter;',
+        'uniform float clipRadius;',
+        'void main() {',
+        '  vec4 color = texture2D(map, vUV);',
+        '  float dist = distance(clipCenter, vUV);',
+        '  if (dist > clipRadius) { discard; }',
+        '  gl_FragColor = color;',
+        '}'
+      ].join('\n')
+    });
+
     document.addEventListener("DOMContentLoaded", function() {
       const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
