@@ -1,28 +1,35 @@
-<script src="https://unpkg.com/aframe-transparent-video-shader-corrected@1.0.0/dist/transparent-video-shader.js"></script>
-<div style="position: absolute; font-family: sans-serif; max-width: 600px;">
-      
-      
-    <div style="position:absolute">
-        <video id="videoElement" src="./sample.mov" type='video/mp4; codecs="hvc1"' autoplay loop playsinline webkit-playsinline muted></video>
-</div>
-      
-        <h1>Web video with transparency demo. This text is HTML</h1>
-
-        <p>This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-            This text appears under the playing video, and it works in both Chrome and Safari. 
-        </p>
-
-      
-      
-      <div>iPhone mockup video exported with Rotato</div>
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body style="margin: 0px; overflow: hidden;">
+  <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
+    <a-assets>
+      <!-- Place your gif asset here -->
+    </a-assets>
+    <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
+      <!-- Using GIF shader -->
+      <a-entity geometry="primitive: plane; width: 1; height: 1;" position="0 0 0" material="shader:gif;src:url(./sample.gif);"></a-entity>
+    </a-nft>
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+</html>
