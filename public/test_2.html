@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-  <style>
-    #gifElement {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      width: 180px;
-      height: 120px;
-      opacity: 0.8;
-    }
-  </style>
+  <!-- <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/aframe-transparent-video-shader@1.0.6/dist/aframe-transparent-video-shader.umd.js"></script> -->
 </head>
 <body style="margin: 0px; overflow: hidden;">
-  <img id="gifElement" src="./sample.gif" alt="animated gif">
+  <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
   <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
+    <a-assets>
+        <video id="videoElement" src="./sample.mov" type='video/mp4; codecs="hvc1"' autoplay loop playsinline webkit-playsinline muted></video>
+    </a-assets>
     <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <a-marker preset="hiro"></a-marker>
-      <a-entity position="0 0 0">
+      <!-- <a-entity position="0 0 0">
+        <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video>
+      </a-entity> -->
+      <a-entity
+        material="shader: transparent-video; src: #videoElement;"
+        geometry="primitive: plane;
+                  width: 1;
+                  height: 1.8"
+        position="100 0 -280"
+        rotation="-90 0 0"
+        scale="180 120">
       </a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const playButton = document.getElementById("playButton");
+      const videoElement = document.getElementById("videoElement");
+
+      playButton.addEventListener("click", function() {
+        videoElement.play();
+      });
+    });
+  </script>
 </body>
 </html>
