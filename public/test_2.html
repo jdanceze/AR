@@ -2,31 +2,52 @@
 <html>
 <head>
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    #videoElement {
+      position: fixed;
+      z-index: -1;
+      visibility: hidden;
+    }
+  </style>
 </head>
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
-  <a-scene arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
-    <a-assets>
-      <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
-        <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
-      </video>
-    </a-assets>
-
-    <a-marker id="markerElement" preset="hiro">
-      <a-video src="#videoElement" width="1" height="0.56"></a-video>
+  <video id="videoElement" loop autoplay muted playsinline webkit-playsinline>
+    <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
+  </video>
+  <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
+    <a-marker id="marker" preset="hiro">
     </a-marker>
-
     <a-entity camera></a-entity>
   </a-scene>
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
+      const markerElement = document.getElementById("marker");
 
       playButton.addEventListener("click", function() {
         videoElement.play();
+      });
+
+      markerElement.addEventListener('markerFound', function() {
+        const markerObject3D = markerElement.object3D;
+        // For now, simply converting 3D position to 2D.
+        const x = markerObject3D.position.x * 10; // Scale factor for demonstration
+        const y = markerObject3D.position.y * 10; // Scale factor for demonstration
+        videoElement.style.left = `${x}px`;
+        videoElement.style.top = `${y}px`;
+        videoElement.style.width = '300px';
+        videoElement.style.height = '200px';
+        videoElement.style.visibility = 'visible';
+        videoElement.style.zIndex = '999';
+      });
+
+      markerElement.addEventListener('markerLost', function() {
+        videoElement.style.visibility = 'hidden';
       });
     });
   </script>
