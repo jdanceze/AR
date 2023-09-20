@@ -21,8 +21,10 @@
   </video>
   <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;"
     embedded arjs="trackingMethod: best; sourceType: webcam;">
-    <a-marker id="marker" preset="hiro">
-    </a-marker>
+    <!-- <a-marker id="marker" preset="hiro">
+    </a-marker> -->
+    <a-nft id="marker" type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
+    </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
 
@@ -54,8 +56,8 @@
             const markerObject3D = markerElement.object3D;
 
             // Scale factor for demonstration
-            const x = markerObject3D.position.x * 10; // Adjust multiplier
-            const y = markerObject3D.position.y * 10; // Adjust multiplier
+            const x = markerObject3D.position.x; // Adjust multiplier
+            const y = markerObject3D.position.y; // Adjust multiplier
             const z = markerObject3D.position.z;
             // Use Z value to dynamically change size
             const scale = 3000 / Math.abs(z); // The '300' is arbitrary; adjust as needed
