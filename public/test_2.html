@@ -1,68 +1,53 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-  <!-- <script src="./aframe-ar-nft.js"></script> -->
-  <!-- <style>
-    .arjs-loader {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .arjs-loader div {
-        text-align: center;
-        font-size: 1.25em;
-        color: white;
-    }
-</style> -->
 </head>
-
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
-  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded
-    arjs="trackingMethod: best; sourceType: webcam;">
+  <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
     <a-assets>
-      <!-- <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
+      <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
         <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
-      </video> -->
-      <img id="banana" src="./sample.gif">
+      </video>
     </a-assets>
-    <a-nft type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01"
-      smoothThreshold="5">
-      <a-entity position="0 0 0">
-        <!-- <a-video src="#videoElement" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video> -->
-        <!-- <a-video src="./sample.mov" position="100 0 -280" rotation="-90 0 0" scale="180 120" transparent="true"></a-video> -->
-
-        <a-entity geometry="primitive: plane; width: 1; height: 1;" position="0 1.5 -3"
-          material="shader:gif;src: #banana;">
-        </a-entity>
-      </a-entity>
+    <a-nft id="marker" type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
       const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
+      const markerElement = document.getElementById("marker");
+      let videoEntity;
 
-      playButton.addEventListener("click", function () {
+      playButton.addEventListener("click", function() {
         videoElement.play();
+      });
+
+      markerElement.addEventListener('markerFound', function() {
+        if (!videoEntity) {
+          videoEntity = document.createElement("a-video");
+          videoEntity.setAttribute("src", "#videoElement");
+          videoEntity.setAttribute("position", "100 0 -280");
+          videoEntity.setAttribute("rotation", "-90 0 0");
+          videoEntity.setAttribute("scale", "180 120");
+          videoEntity.setAttribute("transparent", "true");
+          markerElement.appendChild(videoEntity);
+        }
+      });
+
+      markerElement.addEventListener('markerLost', function() {
+        if (videoEntity) {
+          markerElement.removeChild(videoEntity);
+          videoEntity = null;
+        }
       });
     });
   </script>
 </body>
-
 </html>
