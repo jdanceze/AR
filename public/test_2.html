@@ -34,14 +34,20 @@
       });
 
       markerElement.addEventListener('markerFound', function() {
+        console.log('markerFound');
         const markerObject3D = markerElement.object3D;
-        // For now, simply converting 3D position to 2D.
-        const x = markerObject3D.position.x * 10; // Scale factor for demonstration
-        const y = markerObject3D.position.y * 10; // Scale factor for demonstration
+        // Scale factor for demonstration
+        const x = markerObject3D.position.x * 10; 
+        const y = markerObject3D.position.y * 10;
+        const z = markerObject3D.position.z * 10;
+
+        // Use Z value to dynamically change size
+        const scale = 300 / Math.abs(z); // The '300' is arbitrary; adjust as needed
+
         videoElement.style.left = `${x}px`;
         videoElement.style.top = `${y}px`;
-        videoElement.style.width = '300px';
-        videoElement.style.height = '200px';
+        videoElement.style.width = `${scale}px`;
+        videoElement.style.height = `${scale * 2 / 3}px`; // Assuming a 3:2 aspect ratio
         videoElement.style.visibility = 'visible';
         videoElement.style.zIndex = '999';
       });
