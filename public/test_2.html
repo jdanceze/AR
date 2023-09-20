@@ -2,40 +2,31 @@
 <html>
 <head>
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
-  <video id="videoElement" style="position: fixed; bottom: 0; left: 0; z-index: -1;" loop autoplay muted playsinline webkit-playsinline>
-    <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
-  </video>
-  <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
-    <a-nft id="marker" type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-    </a-nft>
+  <a-scene arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
+        <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
+      </video>
+    </a-assets>
+
+    <a-marker id="markerElement" preset="hiro">
+      <a-video src="#videoElement" width="1" height="0.56"></a-video>
+    </a-marker>
+
     <a-entity camera></a-entity>
   </a-scene>
-  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
-      const markerElement = document.getElementById("marker");
 
       playButton.addEventListener("click", function() {
         videoElement.play();
-      });
-
-      markerElement.addEventListener('markerFound', function() {
-        // Set position according to the marker's position
-        videoElement.style.position = "fixed";
-        videoElement.style.bottom = "0";
-        videoElement.style.left = "0";
-        videoElement.style.zIndex = "-1"; // or any other style changes you want
-      });
-
-      markerElement.addEventListener('markerLost', function() {
-        videoElement.style.zIndex = "-2";
       });
     });
   </script>
