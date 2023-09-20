@@ -7,45 +7,35 @@
 </head>
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px;">Play Video</button>
+  <video id="videoElement" style="position: fixed; bottom: 0; left: 0; z-index: -1;" loop autoplay muted playsinline webkit-playsinline>
+    <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
+  </video>
   <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;">
-    <a-assets>
-      <video id="videoElement" autoplay loop playsinline webkit-playsinline muted>
-        <source src="./sample.mov" type='video/mp4; codecs="hvc1"'>
-      </video>
-    </a-assets>
     <a-nft id="marker" type="nft" url="./bg_small/bg_small" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
-
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
       const markerElement = document.getElementById("marker");
-      let videoEntity;
 
       playButton.addEventListener("click", function() {
         videoElement.play();
       });
 
       markerElement.addEventListener('markerFound', function() {
-        if (!videoEntity) {
-          videoEntity = document.createElement("a-video");
-          videoEntity.setAttribute("src", "#videoElement");
-          videoEntity.setAttribute("position", "100 0 -280");
-          videoEntity.setAttribute("rotation", "-90 0 0");
-          videoEntity.setAttribute("scale", "180 120");
-          videoEntity.setAttribute("transparent", "true");
-          markerElement.appendChild(videoEntity);
-        }
+        // Set position according to the marker's position
+        videoElement.style.position = "fixed";
+        videoElement.style.bottom = "0";
+        videoElement.style.left = "0";
+        videoElement.style.zIndex = "-1"; // or any other style changes you want
       });
 
       markerElement.addEventListener('markerLost', function() {
-        if (videoEntity) {
-          markerElement.removeChild(videoEntity);
-          videoEntity = null;
-        }
+        videoElement.style.zIndex = "-2";
       });
     });
   </script>
