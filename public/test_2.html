@@ -56,11 +56,11 @@
             const markerObject3D = markerElement.object3D;
 
             // Scale factor for demonstration
-            const x = markerObject3D.position.x; // Adjust multiplier
-            const y = markerObject3D.position.y; // Adjust multiplier
+            const x = markerObject3D.position.x * 100; // Adjust multiplier
+            const y = markerObject3D.position.y * 100; // Adjust multiplier
             const z = markerObject3D.position.z;
             // Use Z value to dynamically change size
-            const scale = 3000 / Math.abs(z); // The '300' is arbitrary; adjust as needed
+            const scale = 30000 / Math.abs(z); // The '300' is arbitrary; adjust as needed
 
             videoElement.style.left = `${window.innerWidth / 2 + x}px`; // Adjust formula
             videoElement.style.top = `${window.innerHeight / 2 - y}px`; // Adjust formula
