@@ -65,7 +65,7 @@
             const y = (markerObject3D.position.y * scale)/1000; // Adjust multiplier
 
             videoElement.style.left = `${(window.innerWidth / 2 + x)/10}px`; // Adjust formula
-            videoElement.style.top = `${window.innerHeight / 2 - y}px`; // Adjust formula
+            videoElement.style.top = `${(-1)*(window.innerHeight / 2 + y)}px`; // Adjust formula
             videoElement.style.width = `${scale}px`;
             videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
             videoElement.style.visibility = 'visible';
