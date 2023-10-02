@@ -65,7 +65,7 @@
             console.log(`3dx: ${markerObject3D.position.x}, 3dy: ${markerObject3D.position.y}, 3dz: ${markerObject3D.position.z}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
 
             // Apply to video element
-            videoElement.style.left = `${x*0.85}px`;
+            videoElement.style.left = `${x*0.95}px`;
             videoElement.style.top = `${y/2.8}px`;
             videoElement.style.width = `${scale}px`;
             videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
@@ -82,9 +82,4 @@
 </body>
 
 </html>
-
-3dx: -125.18515999010081, 3dy: -296.96059613500074, 3dz: -774.9973747436966,
- window.innerWidth: 430, window.innerHeight: 740, 
- scale: 387.09808546024374, 
- x: 212.5770532119899, y: 375.7476439110496
 
