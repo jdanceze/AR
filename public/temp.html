@@ -54,7 +54,7 @@
             const z = markerObject3D.position.z;
 
             // Convert 3D position to 2D screen position
-            const scale = 3000 / Math.abs(z);
+            const scale = 300000 / Math.abs(z);
             const x = markerObject3D.position.x * scale + window.innerWidth / 2;
             const y = window.innerHeight / 2 - markerObject3D.position.y * scale;
 
