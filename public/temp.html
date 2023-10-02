@@ -16,9 +16,6 @@
 
 <body style="margin: 0px; overflow: hidden;">
   <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px; visibility: hidden;">Play Video</button>
-  <audio id="audioElement" loop autoplay style="display: none;">
-    <source src="./sound.mp3" type="audio/mpeg">
-  </audio>
   <video id="videoElement" loop autoplay muted playsinline webkit-playsinline>
     <source src="./pattern.mov" type='video/mp4; codecs="hvc1"'>
   </video>
@@ -36,7 +33,6 @@
       const playButton = document.getElementById("playButton");
       const videoElement = document.getElementById("videoElement");
       const markerElement = document.getElementById("marker");
-      const audioElement = document.getElementById("audioElement");
 
       playButton.addEventListener("click", function () {
         videoElement.play();
@@ -44,14 +40,11 @@
 
       markerElement.addEventListener('markerFound', function () {
         markerVisible = true;
-        audioElement.style.display = 'block'; // Show the audio element when marker is found
-        audioElement.play(); // Play the audio when marker is found
       });
 
       markerElement.addEventListener('markerLost', function () {
         markerVisible = false;
-        audioElement.style.display = 'none';
-        audioElement.pause(); // Pause the audio when marker is lost
+        videoElement.style.visibility = 'hidden';
       });
 
       AFRAME.registerComponent('markerhandler', {
@@ -60,11 +53,19 @@
             const markerObject3D = markerElement.object3D;
             const z = markerObject3D.position.z;
 
+            // Convert 3D position to 2D screen position
+            // const scale = 300000 / Math.abs(z);
+            // const x = (markerObject3D.position.x * scale) + window.innerWidth / 2;
+            // const y = window.innerHeight / 2 - (markerObject3D.position.y * scale);
+
             const scale = 300000 / Math.abs(z);
             const x = markerObject3D.position.x + window.innerWidth / 2;
             const y = window.innerHeight / 2 - markerObject3D.position.y;
 
-            videoElement.style.left = `${x}px`;
+            console.log(`3dx: ${markerObject3D.position.x}, 3dy: ${markerObject3D.position.y}, 3dz: ${markerObject3D.position.z}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
+
+            // Apply to video element
+          videoElement.style.left = `${x}px`;
             videoElement.style.top = `${y/2.8}px`;
             videoElement.style.width = `${scale}px`;
             videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
@@ -81,3 +82,4 @@
 </body>
 
 </html>
+
