@@ -55,8 +55,8 @@
 
             // Convert 3D position to 2D screen position
             const scale = 300000 / Math.abs(z);
-            const x = (markerObject3D.position.x * (scale/20000)) + window.innerWidth / 2;
-            const y = window.innerHeight / 2 - (markerObject3D.position.y * (scale/20000));
+            const x = (markerObject3D.position.x * (scale/40000)) + window.innerWidth / 2;
+            const y = window.innerHeight / 2 - (markerObject3D.position.y * (scale/40000));
 
             console.log(`3dx: ${markerObject3D.position.x}, 3dy: ${markerObject3D.position.y}, 3dz: ${markerObject3D.position.z}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
 
@@ -78,4 +78,6 @@
 </body>
 
 </html>
+
+3dx: -125.18515999010081, 3dy: -296.96059613500074, 3dz: -774.9973747436966, window.innerWidth: 430, window.innerHeight: 740, scale: 387.09808546024374, x: 212.5770532119899, y: 375.7476439110496
 
