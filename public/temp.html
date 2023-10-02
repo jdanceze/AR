@@ -59,8 +59,8 @@
             const y = window.innerHeight / 2 - markerObject3D.position.y * scale;
 
             // Apply to video element
-            videoElement.style.left = `${x}px`;
-            videoElement.style.top = `${y}px`;
+            videoElement.style.left = `${x/1000}px`;
+            videoElement.style.top = `${y/1000}px`;
             videoElement.style.width = `${scale}px`;
             videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
             videoElement.style.visibility = 'visible';
