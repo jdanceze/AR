@@ -65,8 +65,8 @@
             console.log(`3dx: ${markerObject3D.position.x}, 3dy: ${markerObject3D.position.y}, 3dz: ${markerObject3D.position.z}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
 
             // Apply to video element
-            videoElement.style.left = `${x}px`;
-            videoElement.style.top = `${y/2.75}px`;
+            videoElement.style.left = `${x/0.85}px`;
+            videoElement.style.top = `${y/2.8}px`;
             videoElement.style.width = `${scale}px`;
             videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
             videoElement.style.visibility = 'visible';
