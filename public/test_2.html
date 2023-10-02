@@ -62,10 +62,10 @@
             // Use Z value to dynamically change size
             const scale = 300000 / Math.abs(z); // The '300' is arbitrary; adjust as needed
 
-            videoElement.style.left = `${window.innerWidth / 2 + x}px`; // Adjust formula
+            videoElement.style.left = `${(window.innerWidth / 2 + x)/10}px`; // Adjust formula
             videoElement.style.top = `${window.innerHeight / 2 - y}px`; // Adjust formula
             videoElement.style.width = `${scale}px`;
-            videoElement.style.height = `${scale * 2 / 3}px`; // Assuming a 3:2 aspect ratio
+            videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
             videoElement.style.visibility = 'visible';
             videoElement.style.zIndex = '999';
           }
