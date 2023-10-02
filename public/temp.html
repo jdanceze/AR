@@ -58,7 +58,7 @@
             const x = (markerObject3D.position.x * (scale/20000)) + window.innerWidth / 2;
             const y = window.innerHeight / 2 - (markerObject3D.position.y * (scale/20000));
 
-            console.log(`x: ${markerObject3D.position.x}, y: ${markerObject3D.position.y}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
+            console.log(`3dx: ${markerObject3D.position.x}, 3dy: ${markerObject3D.position.y}, 3dz: ${markerObject3D.position.z}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
 
             // Apply to video element
             videoElement.style.left = `${x}px`;
@@ -78,3 +78,4 @@
 </body>
 
 </html>
+
