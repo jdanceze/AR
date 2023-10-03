@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    #videoElement {
+      position: fixed;
+      z-index: -1;
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body style="margin: 0px; overflow: hidden;">
+  <button id="playButton" style="position: fixed; z-index: 1000; top: 10px; left: 10px; visibility: hidden;">Play Video</button>
+  <video id="videoElement" loop autoplay muted playsinline webkit-playsinline>
+    <source src="./pattern.mov" type='video/mp4; codecs="hvc1"'>
+  </video>
+  <a-scene background="transparent: true;" vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;"
+    embedded arjs="trackingMethod: best; sourceType: webcam;">
+    <a-nft id="marker" type="nft" url="./wpink_min_cmyk/wpink_min_cmyk" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
+    </a-nft>
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    let markerVisible = false;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const playButton = document.getElementById("playButton");
+      const videoElement = document.getElementById("videoElement");
+      const markerElement = document.getElementById("marker");
+
+      playButton.addEventListener("click", function () {
+        videoElement.play();
+      });
+
+      markerElement.addEventListener('markerFound', function () {
+        markerVisible = true;
+      });
+
+      markerElement.addEventListener('markerLost', function () {
+        markerVisible = false;
+        videoElement.style.visibility = 'hidden';
+      });
+
+      AFRAME.registerComponent('markerhandler', {
+        tick: function () {
+          if (markerVisible) {
+            const markerObject3D = markerElement.object3D;
+            const z = markerObject3D.position.z;
+
+            // Convert 3D position to 2D screen position
+            // const scale = 300000 / Math.abs(z);
+            // const x = (markerObject3D.position.x * scale) + window.innerWidth / 2;
+            // const y = window.innerHeight / 2 - (markerObject3D.position.y * scale);
+
+            const scale = 300000 / Math.abs(z);
+            const x = markerObject3D.position.x + window.innerWidth / 2;
+            const y = window.innerHeight / 2 - markerObject3D.position.y;
+
+            console.log(`3dx: ${markerObject3D.position.x}, 3dy: ${markerObject3D.position.y}, 3dz: ${markerObject3D.position.z}, window.innerWidth: ${window.innerWidth}, window.innerHeight: ${window.innerHeight}, scale: ${scale}, x: ${x}, y: ${y}`);
+
+            // Apply to video element
+          videoElement.style.left = `${x}px`;
+            videoElement.style.top = `${y/2.8}px`;
+            videoElement.style.width = `${scale}px`;
+            videoElement.style.height = `${scale}px`; // Assuming a 3:2 aspect ratio
+            videoElement.style.visibility = 'visible';
+            videoElement.style.zIndex = '999';
+          }
+        }
+      });
+
+      // Add the component to the scene
+      document.querySelector('a-scene').setAttribute('markerhandler', {});
+    });
+  </script>
+</body>
+
+</html>
+
